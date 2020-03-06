@@ -83,7 +83,7 @@ export default {
         },
         async imgUploadIpfs () {
             console.log("uploading Book Cover to IPFS....")
-            ipfs.add(this.imageBuffer, (error, result) => {
+            ipfs.add(this.imageBuffer, {pin: true}, (error, result) => {
                 if (error || !result) {
                     console.log("Error!")
                     return;
