@@ -90,7 +90,7 @@ export default {
                 }
                 else {
                     this.imageHash = result[0].hash
-                    this.imageHashUrl = "http://ipfs.io/ipfs/" + this.imageHash
+                    this.imageHashUrl = "https://ipfs.io/ipfs/" + this.imageHash
                     console.log("Book Cover Loaded to IPFS")
                     return;
                 }
