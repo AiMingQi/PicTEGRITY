@@ -32,7 +32,7 @@
                 </v-card-title>
                 <v-card-text>
                     <v-text-field v-model="fileName" label="File Name"></v-text-field>
-                    <v-text-field v-model="dateRecorded" label="Date"></v-text-field>
+                    <v-text-field v-model="dateRecorded" label="Date" :placeholder="now"></v-text-field>
                     <v-textarea v-model="longDescription" label="Description" :rules="rules" counter="360"></v-textarea>
                     <v-btn class="black--text" @click="createJson" color="blue" block large>Create JSON</v-btn>
                     <p>{{listingStuffJson}}</p>
@@ -47,7 +47,7 @@
 <script>
 // import ipfs from '../ipfs'
 import ipfs from '../ipfsapi'
-// import moment from 'moment'
+import moment from 'moment'
 // import axios from 'axios'
 import '../fortmatic'
 import {store} from '../store'
@@ -59,11 +59,11 @@ export default {
                 image: null,
                 imageBuffer: null,
                 imageHash: null,
-                imageHashUrl: null,
                 rules: [v => v.length <= 360 || 'Max 360 characters'],
-                fileName: '',
+                fileName: 'PicTEGRITY',
                 dateRecorded: '',
-                longDescription: '',
+                longDescription: 'This image has been stored in the InterPlanetary File System - IPFS',
+                imageHashUrl: '',
                 listingStuffJson: {},
                 store
         }
@@ -98,10 +98,10 @@ export default {
         },
         createJson () {
             let listingStuff = {
-                "fileName": this.fileName,
-                "fileDate": this.dateRecorded,
-                "description": this.longDescription,
-                "imageUrl": this.imageHashUrl
+                "N": this.fileName,
+                "T": this.rawNow,
+                "D": this.longDescription,
+                "U": this.imageHashUrl
             }
             this.listingStuffJson = listingStuff
             // console.log("Book Listing", listingStuff)
@@ -124,6 +124,21 @@ export default {
             // console.log("String from Ethereum", getString)
         }
        
+    },
+    computed: {
+        bookListingJSON: function () {
+            const listingJson = JSON.stringify(this.arr)
+            return listingJson
+        },
+        rawNow: function () {
+            let now = Date.now()
+            return now;
+        },
+        now: function () {
+            let now = Date.now()
+            let formatedNow = moment(now).format('MMMM Do YYYY, h:mm:ss a');
+            return formatedNow;
+        }
     }
 }
 </script>
