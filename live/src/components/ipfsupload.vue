@@ -47,6 +47,12 @@
 <script>
 // import ipfs from '../ipfs'
 import ipfs from '../ipfsapi'
+// import moment from 'moment'
+// import axios from 'axios'
+import '../fortmatic'
+import {store} from '../store'
+import abi from '../contracts/PicTEGRITY.json';
+
 export default {
     data () {
         return {
@@ -58,7 +64,8 @@ export default {
                 fileName: '',
                 dateRecorded: '',
                 longDescription: '',
-                listingStuffJson: {}
+                listingStuffJson: {},
+                store
         }
     },
     methods: {
@@ -103,9 +110,20 @@ export default {
             // this.listingJsonString = listingJson
             // return listingJson;
         },
-        storeOnChain () {
-            console.log('Store on Chain')
+        async storeOnChain () {
+            const address = this.store.selectedContractAddress // Your account address goes here
+            console.log("Getting batch at address: " + address);
+            var randomString = await new window.web3.eth.Contract(abi, address);
+            // var returnedString = await randomString.methods.set("Testing").call();
+            var TokenSuccess = await randomString.methods.set(JSON.stringify(this.listingStuffJson)).send({ gasLimit: "1000000",  from: this.store.OWNER_ADDRESS });
+            // this.returnedString = returnedString
+            // this.currentEthImageUrl = TokenSuccess
+            console.log("Set To Ethereum Success", TokenSuccess)
+            // return newBatch;
+            // let getString = await ContractTasks.Get(g_Web3, address);
+            // console.log("String from Ethereum", getString)
         }
+       
     }
 }
 </script>

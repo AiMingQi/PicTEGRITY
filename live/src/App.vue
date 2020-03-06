@@ -31,7 +31,10 @@
 </template>
 
 <script>
+// import web3 from '../web3
+import "./fortmatic"
 import ipfsupload from './components/ipfsupload.vue'
+import {store} from './store'
 
   export default {
     components: {
@@ -43,10 +46,21 @@ import ipfsupload from './components/ipfsupload.vue'
 
     data: () => ({
       drawer: null,
+      web3account: null,
+      store
     }),
 
     created () {
       this.$vuetify.theme.dark = true
+      console.log("Window",window.web3);
+      this.web3account = window.web3.eth.getAccounts((error, accounts) => {
+                console.log(accounts);
+                console.log('Web3 Capable Account Found');
+                // this.OWNER_ADDRESS = accounts[0]
+                this.store.OWNER_ADDRESS = accounts[0];
+                this.grabbingAddress = false;
+            });
+      console.log("What is our web3 address?",this.web3account)
     },
   }
 </script>
