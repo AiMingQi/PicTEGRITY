@@ -90,7 +90,7 @@ consumerList: map(Consumer)
 blacklist: public(map(Consumer))
 
 #Map of published Reviews
-reviews: public(map(Review)
+reviewsList: public(map(Review)
 
 #Stake params
 authorStakeWeightMax: int128
@@ -268,7 +268,7 @@ Add Consumer Stake
 
 # Consumer, Publisher, or Arbitrator can perform
 #For Consumer to Return Stake all UnlockContent Key Verifications must be resolved.
-@private
+@public
 Return Consumer Stake
 
 #Only Publisher and Arbitrator can perform
@@ -276,17 +276,34 @@ Return Consumer Stake
 Get Consumer List
 
 #Fulfill Content
+#Only Consumer can perform
+#Requires Content with an Encryption Key Oracle and a Registered Consumer with sufficient Stake
+@public
+Initiate Content Purchase
+
+#Upon Purchase initiation 
 #Utilize UnlockContent Oracle to receive Encryption Key
 @private
 Unlock Content Key Generation
 
-#Once the Consumer has recieved the UnlockContent Key from the Oracle they submit their UnlockContent Key Verification to purchase further Content.
-#By Rejecting Content Verification the Consumer is Requesting Arbitration
+#Get Content
+@private
+Get Content
+
+#Once the Consumer has recieved the Unlock Content Key  from the Oracle and the Content from IPFS they submit their Accept Content Key Verification to purchase further Content.
+#By selecting to Reject Content Verification the Consumer is Requesting Arbitration
 #Until Consumption Verification is Complete, Consumer cannot Unlock further Content or Return their Stake
 @public
-Unlock Content Key Verification
+Accept Content Key Verification
+
+#Only Consumer can perform
+#Initiates Request for Arbitration
+#Locks Consumer Stake until Resolution
+@public
+Reject Content Key Verification
 
 #Utilize Price to Consume Stake upon Unlock Content Key Verification
+#Requires Accept Content Key Verification
 @private
 Consume Stake
 
