@@ -7,6 +7,7 @@
 #Publisher params
 struct Publisher:
     #Address set by Publisher to receive Publisher Royalties
+    #Publisher is the general administrator and has rights to most public functions
     delegatedPublisher: address
     # Remainder after Author, Developer, and Arbitrator delegations
     stakeWeight: int128
@@ -14,6 +15,7 @@ struct Publisher:
 #Author params
 struct Authors:
     #Address set by Publisher to receive Author Royalties
+    #Authors can create Content
     delegatedAuthors: map(address, stakeWeight)
     #Limited by authorStakeWeightMax and authorStakeWeightWeightMin
     #Required for Author to receive Royalties
@@ -22,6 +24,7 @@ struct Authors:
 #Developer params
 struct Developers:
     #Address set by Publisher to receive Developer Royalties
+    #Developers have no access to public methods other than Return Developer Royalties and those available to anyone
     delegatedDevelopers: map(address, stakeWeight)
     #Limited by developerStakeWeightMax and developerStakeWeightMin
     #Required for Developer to receive Royalties
@@ -35,6 +38,8 @@ struct Content:
     reviewCount: int128
     #IPFS address of metadata
     contentMetadata: bytes[46]
+    #Current Price of Content to Consumer
+    price: wei
 
 #Review params    
 struct Review:
@@ -97,9 +102,6 @@ arbitratorStakeWeightMin: int128
 consumerStakeMax: wei
 consumerStakeMin: wei
 
-#Current Price of Content to Consumer
-price: public(wei)
-
 #Availability of Content to Consumer
 available: bool
 
@@ -138,6 +140,7 @@ Set Arbitrator Rate
 Validate Remainder
 
 #Contract Methods
+#Developers are generally asserted away from performing any functions other than Add Developer Stake, Return Developer Stake, and those available to anyone including becoming a Consumer.
 
 #Only Publisher or Arbitrator can Register
 Register Publisher
@@ -195,6 +198,11 @@ Return Arbitrator Stake
 #Only Author or Publisher can Perform
 @public
 Add Content
+
+#Key Provider Initializization
+@public
+Establish Key Provider
+
 #Register Metadata Location in IPFS
 #Only Author or Publisher can Perform
 @public
