@@ -82,6 +82,9 @@ struct Arbitrator
     #Set by Publisher on Arbitrator Registration
     stakeWeight: int128
 
+#List of registered Content
+contentList: map(Content)
+
 #List of registered Consumers
 consumerList: map(Consumer)
 
@@ -208,7 +211,7 @@ Establish Key Provider
 @public
 Add Metadata
 
-#Corresponding Event to add easy Indexing by even light nodes
+#Corresponding Event to add easy Indexing
 @public
 Get Metadata
 
@@ -216,6 +219,8 @@ Get Metadata
 
 #Pricing Controls
 #Only Publisher or Pricing Contract Interface can Perform
+#Acts on Content.price
+@public
 Set Price
 
 @public
