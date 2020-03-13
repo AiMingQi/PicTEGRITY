@@ -83,14 +83,14 @@ struct Arbitrator
     stakeWeight: int128
 
 #List of registered Content
-contentList: map(Content)
+contentList: public(map(Content))
 
 #List of registered Consumers
 consumerList: map(Consumer)
 
 #Blacklist of Consumers who are prevented from Consuming Content due to Agreement violations
 #Set by Arbitrator or Publisher
-blacklist: public(map(Consumer))
+blackList: public(map(Consumer))
 
 #Map of published Reviews
 reviewsList: public(map(Review)
