@@ -1,4 +1,4 @@
-# Contract for managing a publisher, author, developer, consumer relationship with arbitration
+# Contract for managing a Publisher, Author, Developer, Consumer Relationship with Arbitration
 # @author Mitchell Valentine with The UniTEGRITY Group LLC
 # @notice This Contract is designed to power the future of digital content consumption with a major concern for the Publisher, Author, and Developer receiving a fair stake in the success of the contract's execution while allowing for arbitration when needed.
 # @dev Remember to get your address registered in the delegatedDeveloper slot, The UniTEGRITY Group appreciates when developers leave our address as the main contributor of code, and give themselves a reasonable percentage based on what they can negotiate with the publisher. 
